@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import './bootstrap.min.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import FeedbackList from './components/FeedbackList'
+import FeedbackForm from './components/FeedbackForm'
+import FeedbackStats from './components/FeedbackStats'
+import About from './pages/About'
+import AboutLink from './components/AboutLink'
+import { FeedbackProvider } from './context/FeedbackContext'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <FeedbackProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <FeedbackForm />
+                <FeedbackStats />
+                <FeedbackList />
+                <AboutLink />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/about"
+            element={
+              <>
+                <About />
+              </>
+            }
+          ></Route>
+        </Routes>
+        {/* <div>
+        <NavLink to='/about' activeClassName='active' >about</NavLink>
+        <NavLink to='/' activeClassName='active' >home</NavLink>
+      </div> */}
+        <Footer />
+      </Router>
+    </FeedbackProvider>
+  )
 }
 
-export default App;
+export default App
